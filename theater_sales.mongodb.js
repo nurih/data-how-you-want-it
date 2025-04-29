@@ -1,137 +1,14 @@
-
+const fs = require("fs");
 use("demo");
+const docs = EJSON.parse(fs.readFileSync("./theater_sales.json"))
 
 const collectionName = "theater_sales";
 const collection = db.getCollection(collectionName);
 
 collection.deleteMany({});
 
-collection.insertMany(
-  [
-    {
-      "_id": "2025-01-01_aero",
-      "theater": "Aero",
-      "day": ISODate("2025-01-01"),
-      "sales": [
-        {
-          "movie": "Elf",
-          "count": 111
-        },
-        {
-          "movie": "Die Hard",
-          "count": 222
-        }
-      ]
-    },
-    {
-      "_id": "2025-02-02_aero",
-      "theater": "Aero",
-      "day": ISODate("2025-02-02"),
-      "sales": [
-        {
-          "movie": "Elf",
-          "count": 211
-        },
-        {
-          "movie": "Die Hard",
-          "count": 244
-        },
-        {
-          "movie": "The Tick",
-          "count": 233
-        }
-      ]
-    },
-    {
-      "_id": "2025-02-02_broadway",
-      "theater": "Broadway",
-      "day": ISODate("2025-02-02"),
-      "sales": [
-        {
-          "movie": "Die Hard",
-          "count": 440
-        },
-        {
-          "movie": "The Tick",
-          "count": 330
-        },
-        {
-          "movie": "Jaws",
-          "count": 60
-        }
-      ]
-    },
-    {
-      "_id": "2025-04-25_apollo",
-      "day": ISODate("2025-04-25"),
-      "sales": [
-        {
-          "movie": "Speed",
-          "count": 1
-        },
-        {
-          "movie": "Speed",
-          "count": 1
-        },
-        {
-          "movie": "Speed",
-          "count": 1
-        }
-      ],
-      "theater": "Apollo"
-    },
-    {
-      "_id": "2000-01-01_arclight",
-      "day": ISODate("2000-01-01"),
-      "sales": [
-        {
-          "movie": "Groundhog Day",
-          "count": 12
-        },
-        {
-          "movie": "Groundhog Day",
-          "count": 12
-        },
-        {
-          "movie": "Groundhog Day",
-          "count": 12
-        }
-      ],
-      "theater": "Arclight"
-    },
-    {
-      "_id": "2000-01-02_arclight",
-      "day": ISODate("2000-01-02"),
-      "sales": [
-        {
-          "movie": "Groundhog Day",
-          "count": 12
-        }
-      ],
-      "theater": "Arclight"
-    },
-    {
-      "_id": "2012-12-20_cineplex",
-      "day": ISODate("2012-12-20"),
-      "sales": [
-        {
-          "movie": "The Dark Knight Rises",
-          "count": 950
-        },
-        {
-          "movie": "Adventureland",
-          "count": 234
-        },
-        {
-          "movie": "The Dark Knight Rises",
-          "count": 950
-        },
-        {
-          "movie": "Adventureland",
-          "count": 234
-        }
-      ],
-      "theater": "Cineplex"
-    }
-  ]
-);
+collection.insertMany(docs);
+
+collection.createIndex({ day: 1, theater: 1 });
+collection.createIndex({ theater: 1 });
+collection.createIndex({ day: 1, "sales.movie": 1, theater: 1 });
