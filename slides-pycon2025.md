@@ -2,7 +2,7 @@
 marp: true
 theme: uncover
 style: |
-  body{
+  :root{
    color: #001e2b;
    background: #fafbfc;
   }
@@ -194,8 +194,9 @@ async def multi_day_sales(on_or_after: date, before: date, *breakdown: str):
 
 ---
 
-## Summary
+## Resources
 
-PyMongo FTW
-
-Learn more at :...
+1. [`pymongo`](//pymongo.readthedocs.io/en/stable/) **pymongo.readthedocs.io**/en/stable/
+1. [`motor`](//motor.readthedocs.io/en/stable/) **motor.readthedocs.io**/en/stable/
+1. [`fastapi`](//fastapi.tiangolo.com/) **fastapi.tiangolo.com**/
+1. [MongoDB Community Champions](//www.mongodb.com/community/champions/) **mongodb.com**/community/champions
