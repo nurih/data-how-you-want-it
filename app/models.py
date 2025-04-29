@@ -1,4 +1,5 @@
 import datetime
+import json
 from typing import Literal
 
 from pydantic import BaseModel, Field, computed_field
@@ -45,3 +46,6 @@ class BoxOfficeQueryOptions(BaseModel):
     breakdown: Literal["theater", "sales.movie"]
 
 
+if __name__ == "__main__":
+    schema = TheaterSales.model_json_schema()
+    print(json.dumps(schema))

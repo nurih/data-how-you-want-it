@@ -1,0 +1,62 @@
+{
+  "$defs": {
+    "TicketCount": {
+      "properties": {
+        "movie": {
+          "title": "Movie",
+          "type": "string"
+        },
+        "count": {
+          "minimum": 0,
+          "title": "Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "movie",
+        "count"
+      ],
+      "title": "TicketCount",
+      "type": "object"
+    }
+  },
+  "example": {
+    "day": "2012-12-20",
+    "sales": [
+      {
+        "count": 950,
+        "movie": "The Dark Knight Rises"
+      },
+      {
+        "count": 234,
+        "movie": "Adventureland"
+      }
+    ],
+    "theater": "Cineplex"
+  },
+  "properties": {
+    "theater": {
+      "title": "Theater",
+      "type": "string"
+    },
+    "day": {
+      "format": "date",
+      "title": "Day",
+      "type": "string"
+    },
+    "sales": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/TicketCount"
+      },
+      "title": "Sales",
+      "type": "array"
+    }
+  },
+  "required": [
+    "theater",
+    "day"
+  ],
+  "title": "TheaterSales",
+  "type": "object"
+}
