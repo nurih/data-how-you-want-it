@@ -1,6 +1,8 @@
 from datetime import date, datetime
 import re
 
+
+SAFE_FIELD_RE = re.compile("([^a-zA-Z0-9])")
 """ Regex to match illegal characters in MongoDB field names.
     See: https://www.mongodb.com/docs/manual/reference/limits/#mongodb-limit-Restrictions-on-Field-Names
     Field names cannot contain the null character.
@@ -9,7 +11,7 @@ import re
       - No whitespace
       - No punctuation
     """
-SAFE_FIELD_RE = re.compile("([^a-zA-Z0-9])")
+
 
 def date_to_datetime(day: date) -> datetime:
     """Convert a date to a datetime."""
