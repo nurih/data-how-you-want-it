@@ -90,10 +90,9 @@ Field| BSON Data Type | Python (in demo)
 `theater` | **UTF-8 String** | `str`
 `day` | **UTC Datetime** | `datetime.date`
 `sales` | **Array** | `list`
-`sales` | **Array** | `list`
-`movie` | **UTF-8 String** | `str`
-`tickets_sold` | **32-bit integer** | `int`
+`count` | **32-bit integer** | `int`
 
+> See <https://bsonspec.org>
 ---
 
 ## PyMongo + Motor
