@@ -1,6 +1,7 @@
 ---
 marp: true
 theme: uncover
+paginate: true
 style: |
   :root{
    color: #001e2b;
@@ -44,16 +45,18 @@ style: |
     color: #a0a0a0;
   }
 ---
+<!-- _paginate: skip -->
 # Data How You Want It
 
 > pymongo + MongoDB == your_data_backend
 
-
 ```python
-topics = [topic for topic in ('MongoDB', 'pymongo', 'AsyncIOMotorClient', 'FastAPI')]
+discussion_topics = ('MongoDB', 'pymongo', 'AsyncIOMotorClient', 'FastAPI')
 ```
 
-![bg opacity:.4](assets/Caustics.gif)
+Nuri Halperin | PyCon 2025
+
+![bg opacity:.24 sepia](assets/Caustics.gif)
 
 ---
 
@@ -74,7 +77,7 @@ MongoDB stores documents. Documents are self describing representation of your d
 
 _This document was designed to store the number of tickets sold for a movie in a theater on a certain day._
 
-![bg left:30% blur:3px](assets/doc.png)
+![bg left:30% blur:4px grayscale](assets/doc.png)
 
 ---
 
@@ -112,6 +115,7 @@ Field| BSON Data Type | Python (in demo)
 ## Once, Before All
 
 ![bg right:24%](assets/atlas_globe.webp)
+
 ```python
 from motor.motor_asyncio import AsyncIOMotorClient
 
@@ -152,6 +156,7 @@ async def get_one_theater_sales(day: date, theater: str):
 
 > `find_one()` returns one document matching criteria.
 ---
+<!-- _backgroundColor: hsl(0, 100%, 64%) -->
 
 ## Writing - (Dangerously)
 
@@ -160,7 +165,7 @@ await collection.update_one(
     {"_id": data.id},
     {
         "$set": {
-            "sales": sales,
+            "sales": sales, # a list of sales
             "theater":data.theater,
             "day": date_to_datetime(data.day),
         }
@@ -205,6 +210,27 @@ async def multi_day_sales(on_or_after: date, before: date, *breakdown: str):
 
 ---
 
+## Pyadantically
+
+```python
+class TheaterSales(BaseModel):
+    theater: str
+    day: datetime.date
+    sales: list[TicketCount] = []
+
+    @computed_field(alias="_id")
+    @property
+    def id(self) -> str:
+        return create_id(self.theater, self.day)
+
+    model_config = {
+        "json_schema_extra": { }
+    }
+```
+
+![bg fit left:50%](assets/pydantic-mapping.svg)
+
+---
 ## Fast?
 
 ![bg opacity:.7](assets/rocket_launch.jpg)
@@ -219,7 +245,6 @@ async def multi_day_sales(on_or_after: date, before: date, *breakdown: str):
 ## Resources
 
 ![bg opacity:.24](assets/library.jpg)
-
 
 1. [`pymongo`](//pymongo.readthedocs.io/en/stable/) **pymongo.readthedocs.io**/en/stable/
 1. [`motor`](//motor.readthedocs.io/en/stable/) **motor.readthedocs.io**/en/stable/
