@@ -48,9 +48,12 @@ style: |
 
 > pymongo + MongoDB == your_data_backend
 
+
 ```python
 topics = [topic for topic in ('MongoDB', 'pymongo', 'AsyncIOMotorClient', 'FastAPI')]
 ```
+
+![bg opacity:.4](assets/Caustics.gif)
 
 ---
 
@@ -71,6 +74,8 @@ MongoDB stores documents. Documents are self describing representation of your d
 
 _This document was designed to store the number of tickets sold for a movie in a theater on a certain day._
 
+![bg left:30% blur:3px](assets/doc.png)
+
 ---
 
 ## BSON ~= JSON
@@ -90,12 +95,23 @@ Field| BSON Data Type | Python (in demo)
 
 ## PyMongo + Motor
 
-![h:480 saturate](assets/pymongo_motor_mongodb.svg)
+![bg saturate right:60% height:640](assets/pymongo_motor_mongodb.svg)
 
 ---
 
-## Diving In - Preamble
+## Diving In
 
+![bg left:60%](assets/diving_in.jpg)
+
+- Instantiation scope
+- "Connect"
+- "Namespace"
+
+---
+
+## Once, Before All
+
+![bg right:24%](assets/atlas_globe.webp)
 ```python
 from motor.motor_asyncio import AsyncIOMotorClient
 
@@ -112,12 +128,16 @@ db = client.get_default_database()
 > Do something...
 
 ```python
-collection = db.get_collection("stuff")
+c1 = db.stuff1
+
+# c2 = db.get_collection("stuff1")
 ```
 
 ---
 
 ## Read A Doc
+
+![bg left:24%](assets/reading.jpg)
 
 ```python
 
@@ -187,14 +207,19 @@ async def multi_day_sales(on_or_after: date, before: date, *breakdown: str):
 
 ## Fast?
 
+![bg opacity:.7](assets/rocket_launch.jpg)
+
 - FastAPI: Use for high performance, async API
 - Pydantic: Validate dict / doc
 - Async: motor and asyncio manage concurrency
-- MongoDB: High performance by design, scale out, indexes, ...
+- MongoDB: Sharding, indexes, natively document oriented
 
 ---
 
 ## Resources
+
+![bg opacity:.24](assets/library.jpg)
+
 
 1. [`pymongo`](//pymongo.readthedocs.io/en/stable/) **pymongo.readthedocs.io**/en/stable/
 1. [`motor`](//motor.readthedocs.io/en/stable/) **motor.readthedocs.io**/en/stable/

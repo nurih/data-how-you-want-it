@@ -17,3 +17,17 @@ Points to consider:
 ## Slides
 
 Slide [deck for pycon 2025](./slides-pycon2025.md), use [Marp](//marp.app) to render.
+
+### Diagrams
+
+```mermaid
+%%{init: {'theme':'neo'}}%%
+sequenceDiagram
+  actor u1 as Cli
+  participant p1 as Srvr
+  
+  
+  p1 --) u1 : "ping"
+  u1 --) p1 : "pong"
+
+```
