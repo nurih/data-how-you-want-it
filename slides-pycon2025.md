@@ -51,7 +51,7 @@ style: |
 > pymongo + MongoDB == your_data_backend
 
 ```python
-discussion_topics = ('MongoDB', 'pymongo', 'AsyncIOMotorClient', 'FastAPI')
+discussion_topics = ('MongoDB', 'pymongo', 'FastAPI')
 ```
 
 Nuri Halperin | PyCon 2025
@@ -95,9 +95,13 @@ Field| BSON Data Type | Python (in demo)
 > See <https://bsonspec.org>
 ---
 
-## PyMongo + Motor
+## PyMongo - Driver
 
-![bg saturate right:60% height:640](assets/pymongo_motor_mongodb.svg)
+- BSON, codec
+- Sync / Async
+- Cursor
+- Connection management
+![bg right:60% height:640](assets/pymongo_mongodb.svg)
 
 ---
 
@@ -116,7 +120,7 @@ Field| BSON Data Type | Python (in demo)
 ![bg right:24%](assets/atlas_globe.webp)
 
 ```python
-from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import AsyncMongoClient
 
 CONNECTION_STRING = os.environ.get("MY_MONGODB_URI", "mongodb://localhost/demo")
 ```
@@ -124,7 +128,7 @@ CONNECTION_STRING = os.environ.get("MY_MONGODB_URI", "mongodb://localhost/demo")
 > Instantiate
 
 ```python
-client = AsyncIOMotorClient(CONNECTION_STRING)
+client = AsyncMongoClient(CONNECTION_STRING)
 db = client.get_default_database()
 ```
 
@@ -230,13 +234,14 @@ class TheaterSales(BaseModel):
 ![bg fit left:50%](assets/pydantic-mapping.svg)
 
 ---
+
 ## Fast?
 
 ![bg opacity:.7](assets/rocket_launch.jpg)
 
 - FastAPI: Use for high performance, async API
 - Pydantic: Validate dict / doc
-- Async: motor and asyncio manage concurrency
+- Async: AsyncMongoClient (coroutines).
 - MongoDB: Sharding, indexes, natively document oriented
 
 ---
@@ -246,6 +251,6 @@ class TheaterSales(BaseModel):
 ![bg opacity:.24](assets/library.jpg)
 
 1. [`pymongo`](//pymongo.readthedocs.io/en/stable/) **pymongo.readthedocs.io**/en/stable/
-1. [`motor`](//motor.readthedocs.io/en/stable/) **motor.readthedocs.io**/en/stable/
+1. [`AsyncMongoClient`](//pymongo.readthedocs.io/en/stable/api/pymongo/asynchronous/) /en/stable/api/pymongo/asynchronous
 1. [`fastapi`](//fastapi.tiangolo.com/) **fastapi.tiangolo.com**/
 1. [MongoDB Community Champions](//www.mongodb.com/community/champions/) **mongodb.com**/community/champions
