@@ -1,13 +1,13 @@
 import asyncio
 import os
 from datetime import date
-from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import AsyncMongoClient
 from app.models import TheaterSales
 from app.util import date_to_datetime
 
 CONNECTION_STRING = os.environ.get("MY_MONGODB_URI", "mongodb://localhost/demo")
 
-client = AsyncIOMotorClient(CONNECTION_STRING)
+client = AsyncMongoClient(CONNECTION_STRING)
 db = client.get_default_database()
 
 
@@ -66,7 +66,9 @@ async def multi_day_sales(on_or_after: date, before: date, breakdown: list[str])
 
     print(pipeline)
 
-    return await db.theater_sales.aggregate(pipeline).to_list(128)
+    docs = await (await db.theater_sales.aggregate(pipeline)).to_list(24)
+
+    return docs
 
 
 def group_by(*args: str):

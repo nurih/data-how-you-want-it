@@ -1,25 +1,4 @@
 {
-  "$defs": {
-    "TicketCount": {
-      "properties": {
-        "movie": {
-          "title": "Movie",
-          "type": "string"
-        },
-        "count": {
-          "minimum": 0,
-          "title": "Count",
-          "type": "integer"
-        }
-      },
-      "required": [
-        "movie",
-        "count"
-      ],
-      "title": "TicketCount",
-      "type": "object"
-    }
-  },
   "example": {
     "day": "2012-12-20",
     "sales": [
@@ -47,7 +26,25 @@
     "sales": {
       "default": [],
       "items": {
-        "$ref": "#/$defs/TicketCount"
+        "TicketCount": {
+          "properties": {
+            "movie": {
+              "title": "Movie",
+              "type": "string"
+            },
+            "count": {
+              "minimum": 0,
+              "title": "Count",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "movie",
+            "count"
+          ],
+          "title": "TicketCount",
+          "type": "object"
+        }
       },
       "title": "Sales",
       "type": "array"

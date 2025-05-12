@@ -2,11 +2,11 @@ import os
 import pprint
 import asyncio
 
-from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import AsyncMongoClient
 
 CONNECTION_STRING = os.environ.get("MY_MONGODB_URI", "mongodb://localhost/demo")
 
-client = AsyncIOMotorClient(CONNECTION_STRING)
+client = AsyncMongoClient(CONNECTION_STRING)
 
 db = client.get_default_database()
 print(db)
