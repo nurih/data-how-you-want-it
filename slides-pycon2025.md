@@ -60,22 +60,48 @@ Nuri Halperin | PyCon 2025
 
 ---
 
-## What's Up, Doc?
+## Pyadantic
 
-MongoDB stores documents. Documents are self describing representation of your data.
+A Model
+
+```python
+class TheaterSales(BaseModel):
+    theater: str
+    day: datetime.date
+    sales: list[TicketCount] = []
+
+    @computed_field(alias="_id")
+    @property
+    def id(self) -> str:
+        return create_id(self.theater, self.day)
+
+    model_config = {
+        "json_schema_extra": { }
+    }
+```
+
+![bg fit left:50%](assets/pydantic-mapping.svg)
+
+---
+
+## A Document
+
+MongoDB stores documents.
+
+Documents are self describing representation of your data.
 
 ```json
 {
   "theater": "Aero",
-    "day": { "$date": "2025-01-01" },
-    "sales": [
-      { "movie": "Elf", "tickets_sold": 111 },
-      { "movie": "Die Hard", "tickets_sold": 222 }
-    ]
-  }
+  "day": { "$date": "2025-01-01" },
+  "sales": [
+    { "movie": "Elf", "tickets_sold": 111 },
+    { "movie": "Die Hard", "tickets_sold": 222 }
+  ]
+}
 ```
 
-_This document was designed to store the number of tickets sold for a movie in a theater on a certain day._
+> Number of tickets sold for a movie in a theater on a certain day._
 
 ![bg left:30% blur:4px grayscale](assets/doc.png)
 
@@ -213,28 +239,6 @@ async def multi_day_sales(on_or_after: date, before: date, *breakdown: str):
 
 ---
 
-## Pyadantically
-
-```python
-class TheaterSales(BaseModel):
-    theater: str
-    day: datetime.date
-    sales: list[TicketCount] = []
-
-    @computed_field(alias="_id")
-    @property
-    def id(self) -> str:
-        return create_id(self.theater, self.day)
-
-    model_config = {
-        "json_schema_extra": { }
-    }
-```
-
-![bg fit left:50%](assets/pydantic-mapping.svg)
-
----
-
 ## Fast?
 
 ![bg opacity:.7](assets/rocket_launch.jpg)
@@ -254,3 +258,5 @@ class TheaterSales(BaseModel):
 1. [`AsyncMongoClient`](//pymongo.readthedocs.io/en/stable/api/pymongo/asynchronous/) /en/stable/api/pymongo/asynchronous
 1. [`fastapi`](//fastapi.tiangolo.com/) **fastapi.tiangolo.com**/
 1. [MongoDB Community Champions](//www.mongodb.com/community/champions/) **mongodb.com**/community/champions
+
+1. [Demo Repo](//github.com/nurih/data-how-you-want-it.git) github.com/**nurih/data-how-you-want-it**
